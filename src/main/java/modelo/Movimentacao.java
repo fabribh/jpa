@@ -3,9 +3,15 @@ package modelo;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+
+@NamedQuery(name ="mediaDiariaMovimentacoes",
+        query="select new modelo.MediaComData(avg(m.valor), day(m.data), month(m.data),year(m.data))" +
+        " from Movimentacao m group by day(m.data), month(m.data), year(m.data)")
+
 public class Movimentacao {
 
     @Id
@@ -18,11 +24,19 @@ public class Movimentacao {
     private String descricao;
     private BigDecimal valor;
 
-    @ManyToMany
-    private List<Categoria> categorias;
-
     @ManyToOne
     private Conta conta;
+
+    @ManyToMany
+    private List<Categoria> categorias = new ArrayList<>();
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
 
     public Long getId() {
         return id;
@@ -72,11 +86,14 @@ public class Movimentacao {
         this.conta = conta;
     }
 
-    public List<Categoria> getCategorias() {
-        return categorias;
-    }
-
-    public void setCategorias(List<Categoria> categorias) {
-        this.categorias = categorias;
+    @Override
+    public String toString() {
+        return "Movimentacao{" +
+                "id=" + id +
+                ", tipoMovimentacao=" + tipoMovimentacao +
+                ", data=" + data +
+                ", descricao='" + descricao + '\'' +
+                ", valor=" + valor +
+                '}';
     }
 }

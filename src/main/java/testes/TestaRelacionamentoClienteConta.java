@@ -11,12 +11,12 @@ public class TestaRelacionamentoClienteConta {
     public static void main(String[] args) {
 
         Conta conta = new Conta();
-        conta.setId(1L);
+        conta.setId(2L);
 
         Cliente cli = new Cliente();
-        cli.setNome("Fabio");
+        cli.setNome("Pedro");
         cli.setEndereco("Rua Jose Cleto 521");
-        cli.setProfissao("Software Engineer");
+        cli.setProfissao("Atleta Profissional");
         cli.setConta(conta);
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("alura");
